@@ -1,0 +1,342 @@
+/* global box-sizing */
+*,
+*:after,
+*:before {
+	-moz-box-sizing:border-box;
+	box-sizing:border-box;
+	-webkit-font-smoothing:antialiased;
+	font-smoothing:antialiased;
+	text-rendering:optimizeLegibility;
+}
+:root {
+    --gray: #676767;
+    --lightgray: #868686;
+    --red: #B02524;
+    --blue:#002CCA;
+    --black:#000;
+    --cyan:#249FB0;
+    --brown:#422726;
+    --green:#7CB342;
+}
+
+
+body {
+    padding: 20px;
+    background: url(../../public/img/sitebg.jpg) repeat center top;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    color: #000;
+    line-height: 1.5;
+    font-weight: 400;
+}
+.container {
+	max-width: 1310px;
+}
+.login-form {
+	width: 382px;
+	max-width: 100%;
+	margin: 0 auto 200px;
+}
+.h1, h1 {
+    font-size: 24px;
+}
+form p {
+	margin: 0 0 20px;
+}
+form label {
+	display: block;
+	font-weight: 400;
+	font-size: 15px;
+}
+form input, form select, form textarea {
+	width: 100%;
+	height: 35px;
+	border: 1px solid #B9B9B9;
+	outline: none !important;
+	padding: 5px 15px;
+    border-radius: 7px;
+    background: none;
+    color: var(--lightgray);
+}
+form button {
+	font-size: 14px;
+	color: #fff;
+    background: var(--red);
+    border: 1px solid var(--red);
+    min-width: 110px;
+    padding: 7px 15px;
+    border-radius: 9px;
+    transition: all .3s;
+    outline: none !important;
+}
+form button:hover {
+	color: var(--red);
+	background: transparent;
+}
+.button-container {
+    display: flex;
+    justify-content: space-between;
+}
+form.login-form p:not(.button-container) {
+    margin: 0 0 20px;
+    max-width: 283px;
+    margin: 0 auto 20px;
+}
+header .btn {
+    margin: 8px;
+}
+.signup-form {
+	width: 610px;
+	max-width: 100%;
+	margin: 0 auto;
+}
+.signup-form p {
+	margin: 0 0 30px;
+}
+.popup .inner {
+    padding: 40px 50px 10px;
+}
+body #fancybox-close {
+    right: -35px;
+}
+.dashboard .heading {
+    padding: 15px 25px;
+}
+.status .inner {
+	border-radius: 9px;
+	border: 1px solid #A4A4A4;
+	padding: 20px 30px;
+}
+.satatus-approved {
+    padding: 0 0 0 50px;
+    background: url(../../public/img/check-green.png) no-repeat left center;
+    text-align: left;
+    display: inline-block;
+}
+.jurisdiction {
+	padding: 0 0 0 60px;
+	background: url(../../public/img/police-badge.png) no-repeat left center;
+}
+.users-list {
+    padding: 20px 30px;
+}
+.users-list .heading {
+	padding: 8px 15px;
+    margin-bottom: 20px;
+}
+.users-list .heading b {
+	display: block;
+	padding: 0 0 0 50px;
+	background: url(../../public/img/users-card-id.png) no-repeat left center;
+}
+table {
+	width: 100%;
+}
+table td {
+    padding: 40px 0 16px;
+    border-bottom: 1px solid #A4A4A4;
+}
+table td:nth-child(2) {
+	text-align: center;
+}
+table td:nth-child(3) {
+	text-align: right;
+}
+table tr:last-child td {
+	border: 0;
+}
+.edit-user {
+	width: 29px;
+	height: 29px;
+	display: inline-block;
+	background: url(../../public/img/edit-icon.png) no-repeat center;
+	font-size: 0;
+}
+.delete-user {
+	width: 29px;
+	height: 29px;
+	display: inline-block;
+	background: url(../../public/img/delete-icon.png) no-repeat center;
+	font-size: 0;
+}
+.user-info {
+	width: 29px;
+	height: 29px;
+	display: inline-block;
+	background: url(../../public/img/info-icon.png) no-repeat center;
+	font-size: 0;
+}
+.main-menu ul {
+	list-style: none;
+	padding: 0;
+}
+.main-menu ul li {
+	margin: 0 0 5px;
+}
+.main-menu ul li a {
+    font-size: 15px;
+    color: #000;
+    padding: 5px 10px;
+    display: inline-block;
+}
+.main-menu ul li a:hover {
+    background: #FFD7D7;
+    text-decoration: none;
+}
+h3.fs18.pt10.pb10 {
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+.popup.menu .inner {
+    padding: 10px 20px;
+}
+.search-form button {
+    background: #fff;
+    height: 35px;
+    color: var(--red);
+    border-color: var(--red);
+    padding: 5px 20px;
+}
+.search-form input[type="search"]  {
+    width: calc(100% - 140px);
+    margin-right: 10px;
+    background: #fff;
+    color: #000;
+    border-color: var(--red);
+}
+.highlighted {
+    background-color: #FFD7D7;
+    padding: 4px 15px;
+    min-height: 40px;
+}
+.no-highlight {
+	padding: 4px 15px;
+}
+.admin-dashboard .users-list table td a {
+	margin-left: 40px;
+}
+form select {
+	color: var(--green)
+}
+select option:checked {
+	color: var(--green);
+}
+select option {
+  color: black;
+}
+header img {
+    max-width: 100%;
+    height: auto;
+}
+
+
+/*------------------------------------*\
+    RESPONSIVE
+\*------------------------------------*/
+
+/* Desktop */
+.ForMobile {
+    display:none !important;
+}
+@media screen and (min-width:0) and (max-width:1799px) {
+
+
+
+
+} @media screen and (min-width:0) and (max-width:1599px) {
+
+
+
+
+} @media screen and (min-width:0) and (max-width:1439px) {
+
+
+} @media screen and (min-width:0) and (max-width:1365px) {
+
+
+
+
+} @media screen and (min-width:0) and (max-width:1199px) {
+.fs32 {
+    font-size: 24px;
+}
+.fs24 {
+    font-size: 20px;
+}
+
+
+
+/* Mobile */
+} @media screen and (min-width: 0) and (max-width: 991px) {
+.ForMobile {
+    display:block !important;
+}
+.ForDesktop {
+    display:none !important;
+}
+body {
+    min-width:320px;
+}
+.fs32 {
+    font-size: 20px;
+}
+.fs24 {
+    font-size: 18px;
+}
+header .btn {
+    margin: 0;
+}
+
+} @media screen and (min-width:0) and (max-width:767px) {
+
+.container, .container-fluid {
+    padding-right: 20px;
+    padding-left: 20px;
+}
+.users-list {
+    padding: 20px 30px;
+    overflow-x: auto;
+}
+.users-list table, .users-list .heading {
+    width: 767px;
+}
+
+} @media screen and (min-width:0) and (max-width:575px) {
+header .col-sm-4 {
+    -ms-flex: 0 0 33.333333%;
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+}
+.col, .col-1, .col-10, .col-11, .col-12, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-auto, .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-auto, .col-md, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-auto, .col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-auto, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-auto {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+body {
+    padding: 10px 0;
+}
+.heading .row>div {
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+.heading .row>div.col-sm-9 {
+    -ms-flex: 0 0 75%;
+    flex: 0 0 75%;
+    max-width: 75%;
+}
+.heading .row>div.col-sm-3 {
+    -ms-flex: 0 0 25%;
+    flex: 0 0 25%;
+    max-width: 25%;
+}
+.search-div .row>div {
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+.btn {
+    min-width: 100px !important;
+    padding: 7px 15px !important;
+}
+
+}
