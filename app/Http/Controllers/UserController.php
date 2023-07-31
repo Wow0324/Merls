@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -29,9 +30,12 @@ class UserController extends Controller
     public function updateProfile(Request $request) : JsonResponse
     {
         $data = $request->except('_token');
-        // dd($data);
+        
+        $user = Auth::user();
+
         $rules = [
             'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'phone'      => ['required', new Phone($data['phone'])],
@@ -41,12 +45,27 @@ class UserController extends Controller
             'zipcode' => ['required', 'string'],
         ];
 
+        if($user->role == 1){
+            if($data['password'] == '' || $data['password_confirmation'] == ''){
+                $rules = [
+                    'first_name' => ['required', 'string', 'max:255'],
+                    'last_name' => ['required', 'string', 'max:255'],
+                    'email' => ['required', 'string', 'email', 'max:255'],
+                    'phone'      => ['required', new Phone($data['phone'])],
+                    'address' => ['required', 'string'],
+                    'city' => ['required', 'string'],
+                    'state' => ['required', 'string'],
+                    'zipcode' => ['required', 'string'],
+                ];  
+            }
+        }
+
         $v = Validator::make($data, $rules);
 
         if ($v->fails()) {
             return response()->json([
                 'status'  => 'error',
-                "message" => 'Validation failed.'
+                'message' => $v->errors()
             ]);
         }
         
@@ -62,7 +81,9 @@ class UserController extends Controller
         $user->email        = $data['email'];
         $user->first_name   = $data['first_name'];
         $user->last_name    = $data['last_name'];
-        $user->password     = Hash::make($data['password']);
+        if($data['password'] != '' && $data['password'] == $data['password_confirmation']){
+            $user->password     = Hash::make($data['password']);
+        }
         $user->phone        = $data['phone'];
         $user->address      = $data['address'];
         $user->city         = $data['city'];

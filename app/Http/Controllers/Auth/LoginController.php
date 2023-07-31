@@ -53,27 +53,19 @@ class LoginController extends Controller
             'email' => 'required',
             'password' => 'required',
         ]);
-        $role = $request->input('role');
         
         $credentials = $request->only('email', 'password');
         
-        $uuser = User::where('email', $credentials['email'])->first();
-        if(!$uuser){
+        $user = User::where('email', $credentials['email'])->first();
+        if(!$user){
             return redirect("login")->with([
                 'status'  => 'error',
                 'message' => 'User does not exist.',
             ]);
         }
         
-        if($uuser->role != $role *1){
-            return redirect("login")->with([
-                'status'  => 'error',
-                'message' => 'Operation is not allowed.',
-            ]);
-        }
-        
         if (Auth::attempt($credentials)) {
-            $user=Auth::user();
+            
             switch($user['role']){
                 case 0:
                     return redirect()->route('admin.author_users')->with([
@@ -95,7 +87,7 @@ class LoginController extends Controller
   
         return redirect("login")->with([
             'status'  => 'error',
-            'message' => 'Login are not valid.',
+            'message' => 'Login is not valid.',
         ]);
     }
 

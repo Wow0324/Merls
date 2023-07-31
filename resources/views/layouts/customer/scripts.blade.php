@@ -24,13 +24,15 @@
                         $.fancybox.close();
                     }
                     else{
-                        toastr['warning'](response.message, '{{__('Warning')}}!!', {
-                            closeButton: true,
-                            positionClass: 'toast-top-right',
-                            progressBar: true,
-                            newestOnTop: true,
-                            rtl: isRtl
-                        });
+                        document.getElementById("profile-email-error").innerText = response.message.email ? response.message.email : '';
+                        document.getElementById("profile-phone-error").innerText = response.message.phone ? response.message.phone : '';
+                        document.getElementById("profile-password-error").innerText = response.message.password ? response.message.password : '';
+                        document.getElementById("profile-lastname-error").innerText = response.message.last_name ? response.message.last_name : '';
+                        document.getElementById("profile-firstname-error").innerText = response.message.first_name ? response.message.first_name : '';
+                        document.getElementById("profile-state-error").innerText = response.message.state ? response.message.state : '';
+                        document.getElementById("profile-address-error").innerText = response.message.address ? response.message.address : '';
+                        document.getElementById("profile-city-error").innerText = response.message.city ? response.message.city : '';
+                        document.getElementById("profile-zipcode-error").innerText = response.message.zipcode ? response.message.zipcode : '';
                     }
                     
                 },
@@ -217,5 +219,17 @@
         document.getElementById("edit-author-id").value = id;
         document.getElementById("edit-author-name").value = name;
         document.getElementById("edit-author-phone").value = phone;
+    }
+
+    function initProfileErrorValidation() {
+        document.getElementById("profile-email-error").innerText = '';
+        document.getElementById("profile-phone-error").innerText = '';
+        document.getElementById("profile-password-error").innerText = '';
+        document.getElementById("profile-lastname-error").innerText = '';
+        document.getElementById("profile-firstname-error").innerText = '';
+        document.getElementById("profile-state-error").innerText = '';
+        document.getElementById("profile-address-error").innerText = '';
+        document.getElementById("profile-city-error").innerText = '';
+        document.getElementById("profile-zipcode-error").innerText = '';
     }
 </script>

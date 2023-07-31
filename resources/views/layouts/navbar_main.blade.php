@@ -6,7 +6,7 @@
                 <ul>
                     <li><a href="{{url('/')}}">Dashboard</a></li>
                     @if ($user->role == 0)
-                        <li><a href="#add-property" class="fancybox-inline">Add Property</a></li>
+                        <li><a href="#add-admin-property" class="fancybox-inline">Add Property</a></li>
                         <li><a href="#add-user" class="fancybox-inline">Add Authorized Users</a></li>
                         <li><a href="#add-dispatcher" class="fancybox-inline">Add Dispatcher</a></li>
                         <li><a href="#add-customer" class="fancybox-inline">Add Customer</a></li>
@@ -14,7 +14,6 @@
                         <li><a href="#add-property" class="fancybox-inline">Add Property</a></li>
                         <li><a href="#add-user" class="fancybox-inline">Add Authorized Users</a></li>
                     @endif
-                    <li><a href="">Support</a></li>
                     <li><a href="{{route('logout')}}">Logout</a></li>
                 </ul>
             </nav>

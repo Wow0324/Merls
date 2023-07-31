@@ -10,13 +10,15 @@
                         <div class="col-sm-6">
                             <p>
                                 <label for="email">Email</label>
-                                <input type="text" placeholder="" name="email" id="add-dispatcher--email">
+                                <input type="text" placeholder="" name="email" id="add-dispatcher-email">
+                                <span class="small text-danger" id="dispatcher-email-add-error" role="alert"></span>
                             </p>
                         </div>
                         <div class="col-sm-6">
                             <p>
                                 <label for="phone">Phone</label>
-                                <input type="tel" placeholder="" name="phone" id="add-dispatcher--phone">
+                                <input type="tel" placeholder="" name="phone" id="add-dispatcher-phone">
+                                <span class="small text-danger" id="dispatcher-phone-add-error" role="alert"></span>
                             </p>
                         </div>
                     </div>
@@ -24,13 +26,14 @@
                         <div class="col-sm-6">
                             <p>
                                 <label for="psw">Password</label>
-                                <input type="password" placeholder="" name="password" id="add-dispatcher--password">
+                                <input type="password" placeholder="" name="password" id="add-dispatcher-password">
+                                <span class="small text-danger" id="dispatcher-password-add-error" role="alert"></span>
                             </p>
                         </div>
                         <div class="col-sm-6">
                             <p>
                                 <label for="cpsw">Confirm Password</label>
-                                <input type="password" placeholder="" name="password_confirmation">
+                                <input type="password" placeholder="" name="password_confirmation" id="add-dispatcher-passwordconfirmation">
                             </p>
                         </div>
                     </div>

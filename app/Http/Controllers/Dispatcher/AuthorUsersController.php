@@ -37,7 +37,7 @@ class AuthorUsersController extends Controller
         $search = request('search');
         if($search == null) $search = '';
 
-        $authorList = AuthorUsersList::where('name', 'LIKE', '%'.$search.'%')->paginate(10);
+        $authorList = AuthorUsersList::where('name', 'LIKE', '%'.$search.'%')->orWhere('phone', 'LIKE', '%'.$search.'%')->paginate(10);
 
         return view('dispatcher.author_users', [
             'user'        => $user,

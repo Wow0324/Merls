@@ -28,7 +28,7 @@
                         <b class="fs24">Customers</b>
                     </div>
                     <div class="col-sm-6 text-right">
-                        <a href="#add-customer" class="add-user fancybox-inline">
+                        <a href="#add-customer" class="add-user fancybox-inline" onclick="initCustomerAddErrorValidation()">
                             <img src="{{asset('img/add-icon-white.png')}}">
                         </a>
                     </div>
@@ -36,31 +36,41 @@
             </div>
             <div class="row">
                 <div class="col-sm-12">
-                    <table class="width100p users-table fs24">
-                        <tbody>
-                            @foreach ($customers as $customer)
-                                <tr id="customer{{$customer->id}}" data-id="{{$customer->id}}" data-status="{{$customer->status}}">
-                                    <td>{{$customer->email}}</td>
-                                    <td>{{$customer->phone}}</td>
-                                    <td>{{$customer->status == 0 ? 'Pending' : ($customer->status == 1 ? 'Approved' : 'Denied')}}</td>
-                                    <td class="text-right">
-                                        <a href="#approve-customer" class="add-user fancybox-inline" onclick="showApproveCustomerLayout('customer{{$customer->id}}')">
-                                            <img src="{{asset('img/check-green.png')}}">
-                                        </a>
-                                        <a href="#delete-customer" class="add-user fancybox-inline" onclick="showDeleteCustomerLayout('customer{{$customer->id}}')">
-                                            <img src="{{asset('img/delete-icon.png')}}">
-                                        </a>
-                                        <a href="#edit-customer" class="add-user fancybox-inline" onclick="showEditCustomerLayout({{$customer->id}})">
-                                            <img src="{{asset('img/edit-icon.png')}}">
-                                        </a>
-                                        <a href="#show-customer" class="add-user fancybox-inline" onclick="showCustomerLayout({{$customer->id}})">
-                                            <img src="{{asset('img/info-icon.png')}}">
-                                        </a>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                    @if (count($customers)>0)
+                        <table class="width100p users-table fs24">
+                            <tbody>
+                                @foreach ($customers as $customer)
+                                    <tr id="customer{{$customer->id}}" data-id="{{$customer->id}}" data-status="{{$customer->status}}">
+                                        <td>{{$customer->email}}</td>
+                                        <td>{{$customer->phone}}</td>
+                                        <td>{{$customer->status == 0 ? 'Pending' : ($customer->status == 1 ? 'Approved' : 'Denied')}}</td>
+                                        <td class="text-right">
+                                            <a href="#approve-customer" class="add-user fancybox-inline" onclick="showApproveCustomerLayout('customer{{$customer->id}}')">
+                                                <img src="{{asset('img/check-green.png')}}">
+                                            </a>
+                                            <a href="#delete-customer" class="add-user fancybox-inline" onclick="showDeleteCustomerLayout('customer{{$customer->id}}')">
+                                                <img src="{{asset('img/delete-icon.png')}}">
+                                            </a>
+                                            <a href="#edit-customer" class="add-user fancybox-inline" onclick="showEditCustomerLayout({{$customer->id}})">
+                                                <img src="{{asset('img/edit-icon.png')}}">
+                                            </a>
+                                            <a href="#show-customer" class="add-user fancybox-inline" onclick="showCustomerLayout({{$customer->id}})">
+                                                <img src="{{asset('img/info-icon.png')}}">
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @else
+                        <p class="text-center fs24 pt-20">
+                            @if ($search != '')
+                                I searched {{$search}} and it gave me no results.    
+                            @else
+                                no results
+                            @endif
+                        </p>
+                    @endif
                 </div>
             </div>
         </section>
@@ -83,7 +93,7 @@
     @include('layouts/navbar_main')
     @include('layouts/navbar_sub')
     @include('layouts/profile_edit')
-    @include('layouts/property_add')
+    @include('layouts/property_add_admin')
     @include('layouts/author_add')
     @include('layouts/customer_show')
     @include('layouts/customer_add')

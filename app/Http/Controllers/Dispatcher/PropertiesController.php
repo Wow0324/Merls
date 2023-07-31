@@ -35,25 +35,15 @@ class PropertiesController extends Controller
             ]);
         }
 
-        $propertyList = PropertyList::all();
-
-        $propertyId = request('property_id') *1;
-        $activeProperty = null;
-
-        if($propertyId == null || $propertyId == 0){
-            $activeProperty = $propertyList->count() > 0 ? $propertyList[0] : null;
-        }
-        else{
-            $activeProperty = PropertyList::where('id', $propertyId)->first();
-        }
+        $search = request()->input('search');
+        if($search == null) $search = '';
         
-        $authorList = AuthorUsersList::paginate(10);
+        $properties = PropertyList::where('name', 'LIKE', '%'.$search.'%')->orWhere('address', 'LIKE', '%'.$search.'%')->paginate(10);
         
         return view('dispatcher.properties', [
             'user' =>$user,
-            "properties" => $propertyList,
-            "activeProperty" => $activeProperty,
-            "authorUsers" => $authorList
+            "properties" => $properties,
+            'search'      => $search
         ]);
     }
 }

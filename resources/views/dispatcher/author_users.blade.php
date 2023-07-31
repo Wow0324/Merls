@@ -31,16 +31,26 @@
             </div>
             <div class="row">
                 <div class="col-sm-12">
-                    <table class="width100p users-table fs24">
-                        <tbody>
-                            @foreach ($authorUsers as $author)
-                                <tr id="author{{$author->id}}" data-id="{{$author->id}}">
-                                    <td>{{$author->name}}</td>
-                                    <td>{{$author->phone}}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                    @if (count($authorUsers) > 0)
+                        <table class="width100p users-table fs24">
+                            <tbody>
+                                @foreach ($authorUsers as $author)
+                                    <tr id="author{{$author->id}}" data-id="{{$author->id}}">
+                                        <td>{{$author->name}}</td>
+                                        <td>{{$author->phone}}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @else
+                        <p class="text-center fs24 pt-20">
+                            @if ($search != '')
+                                I searched {{$search}} and it gave me no results.    
+                            @else
+                                no results
+                            @endif
+                        </p>
+                    @endif
                 </div>
             </div>
         </section>

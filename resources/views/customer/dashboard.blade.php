@@ -22,9 +22,9 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="inner">
-                        <div class="satatus-approved fs24 lh1-2">
+                        <div class="{{$activeProperty->approved == 1 ? 'satatus-approved' : ''}} fs24 lh1-2">
                             <b class="block">Status</b>
-                            <span class="green">
+                            <span class="{{$activeProperty->approved == 1 ? 'green' : 'red'}}">
                                 {{$activeProperty && $activeProperty->approved == 0 ? 'Pending' : ( $activeProperty->approved == 1 ? 'Approved' : 'Denied')}}
                             </span>
                         </div>
@@ -34,7 +34,9 @@
                     <div class="inner">
                         <div class="jurisdiction fs24 lh1-2">
                             <b class="block">Jurisdiction</b>
-                            <span class="gray">{{$activeProperty ? $activeProperty->jurisdiction : ''}}</span>
+                            <span class="{{$activeProperty->jurisdiction != '' ? 'gray' : 'red'}}">
+                                {{$activeProperty && $activeProperty->jurisdiction != '' ? $activeProperty->jurisdiction : 'Not Added'}}
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -55,21 +57,25 @@
             <div class="row">
                 <div class="container">
                     <div class="col-sm-12">
-                        <table class="width100p users-table fs24">
-                            <tbody>
-                            @foreach ($authorUsers as $author)
-                                <tr id="author{{$author->id}}" data-id="{{$author->id}}">
-                                    <td>{{$author->name}}</td>
-                                    <td>{{$author->phone}}</td>
-                                    <td>
-                                        <a href="#edit-user" class="edit-user fancybox-inline" onclick="showEditLayout('author{{$author->id}}')">
-                                            <img src="{{asset('img/edit-icon.png')}}">
-                                        </a>
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
+                        @if (count($authorUsers) > 0)
+                            <table class="width100p users-table fs24">
+                                <tbody>
+                                @foreach ($authorUsers as $author)
+                                    <tr id="author{{$author->id}}" data-id="{{$author->id}}">
+                                        <td>{{$author->name}}</td>
+                                        <td>{{$author->phone}}</td>
+                                        <td>
+                                            <a href="#edit-user" class="edit-user fancybox-inline" onclick="showEditLayout('author{{$author->id}}')">
+                                                <img src="{{asset('img/edit-icon.png')}}">
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        @else
+                            <p class="text-center fs24 pt-20">no results</p>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -93,7 +99,7 @@
     @include('layouts/navbar_main')
     @include('layouts/profile_edit')
     @include('layouts/property_edit')
-    @include('layouts/property_add')
+    @include('layouts/property_add_customer')
     @include('layouts/author_add')
     @include('layouts/author_edit')
     @include('layouts/choose_property')

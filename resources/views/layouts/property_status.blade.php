@@ -2,7 +2,7 @@
     <div id="property-status" class="popup" style="width: 700px; max-width: 100%;">
         <div class="inner bcwhite">
             <h3 class="fs18 white bcblack pt10 pb10 pl20 pr20 mb30">Property Approval</h3>
-            <h4 class="fs20 mb20">{{$activeProperty->name}}</h4>
+            <h4 class="fs20 mb20">{{$activeProperty != null ? $activeProperty->name : ''}}</h4>
             <form id="property-status-form" class="signup-form site-form">
                 <fieldset>
                     @csrf
@@ -12,9 +12,9 @@
                             <p>
                                 <label for="">Status</label>
                                 <select name="approve">
-                                    <option value="1" {{$activeProperty->approved == 1 ? 'selected' : ''}}>Approved</option>
-                                    <option value="0" {{$activeProperty->approved == 0 ? 'selected' : ''}}>Pending</option>
-                                    <option value="2" {{$activeProperty->approved == 2 ? 'selected' : ''}}>Denied</option>
+                                    <option value="1" {{$activeProperty && $activeProperty->approved == 1 ? 'selected' : ''}}>Approved</option>
+                                    <option value="0" {{$activeProperty && $activeProperty->approved == 0 ? 'selected' : ''}}>Pending</option>
+                                    <option value="2" {{$activeProperty && $activeProperty->approved == 2 ? 'selected' : ''}}>Denied</option>
                                 </select>
                             </p>
                         </div>

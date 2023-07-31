@@ -10,7 +10,6 @@
                 <form id="login-form" class="login-form site-form" method="POST" action="{{ route('login') }}">
                     <fieldset>
                         @csrf
-                        <input type="hidden" placeholder="" name="role" id="role" value="1">
                         <p>
                             <label for="uname">Email</label>
                             <input type="text" placeholder="" id="email" name="email" required>
@@ -29,15 +28,11 @@
                                 </span>
                             @enderror
                         </p>
-                        <p class="button-container text-center pt30">
-                            <button type="button" onClick="setValue(1)">Customer</button>
-                            <button type="button" onClick="setValue(2)">Dispatcher</button>
-                            <button type="button" onClick="setValue(0)">Admin</button>
+                        <p class="text-center pt30">
+                            <button type="submit">Login</button>
                         </p>
                     </fieldset>
                 </form>
-
-                <p class="text-center fw300">There will only be one button on launch but there are 3 here so we can <br>navigate correctly where we would based on our user privilege </p>
 
             </div>
         </div>
@@ -78,14 +73,4 @@
     </div>
 </footer>
 
-<script>
-    function setValue(value) {
-        var hiddenInput = document.getElementById('role');
-        hiddenInput.value = value;
-
-        // Submit the form
-        var form = document.getElementById('login-form');
-        form.submit();
-    }
-</script>
 @endsection

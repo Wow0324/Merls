@@ -28,7 +28,7 @@
                         <b class="fs24">Dispatchers</b>
                     </div>
                     <div class="col-sm-6 text-right">
-                        <a href="#add-dispatcher" class="add-user fancybox-inline">
+                        <a href="#add-dispatcher" class="add-user fancybox-inline" onclick="initDispatcherAddErrorValidation()">
                             <img src="{{asset('img/add-icon-white.png')}}">
                         </a>
                     </div>
@@ -36,27 +36,37 @@
             </div>
             <div class="row">
                 <div class="col-sm-12">
-                    <table class="width100p users-table fs24">
-                        <tbody>
-                            @foreach ($dispatchers as $dispatcher)
-                                <tr id="dispatcher{{$dispatcher->id}}" data-id="{{$dispatcher->id}}">
-                                    <td>{{$dispatcher->email}}</td>
-                                    <td>{{$dispatcher->phone}}</td>
-                                    <td>
-                                        <a href="#delete-dispatcher" class="add-user fancybox-inline" onclick="showDeleteDispatcherLayout('dispatcher{{$dispatcher->id}}')">
-                                            <img src="{{asset('img/delete-icon.png')}}">
-                                        </a>
-                                        <a href="#edit-dispatcher" class="add-user fancybox-inline" onclick="showEditDispatcherLayout('dispatcher{{$dispatcher->id}}')">
-                                            <img src="{{asset('img/edit-icon.png')}}">
-                                        </a>
-                                        <a href="#show-dispatcher" class="add-user fancybox-inline" onclick="showDispatcherLayout('dispatcher{{$dispatcher->id}}')">
-                                            <img src="{{asset('img/info-icon.png')}}">
-                                        </a>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                    @if (count($dispatchers) > 0)
+                        <table class="width100p users-table fs24">
+                            <tbody>
+                                @foreach ($dispatchers as $dispatcher)
+                                    <tr id="dispatcher{{$dispatcher->id}}" data-id="{{$dispatcher->id}}">
+                                        <td>{{$dispatcher->email}}</td>
+                                        <td>{{$dispatcher->phone}}</td>
+                                        <td>
+                                            <a href="#delete-dispatcher" class="add-user fancybox-inline" onclick="showDeleteDispatcherLayout('dispatcher{{$dispatcher->id}}')">
+                                                <img src="{{asset('img/delete-icon.png')}}">
+                                            </a>
+                                            <a href="#edit-dispatcher" class="add-user fancybox-inline" onclick="showEditDispatcherLayout('dispatcher{{$dispatcher->id}}')">
+                                                <img src="{{asset('img/edit-icon.png')}}">
+                                            </a>
+                                            <a href="#show-dispatcher" class="add-user fancybox-inline" onclick="showDispatcherLayout('dispatcher{{$dispatcher->id}}')">
+                                                <img src="{{asset('img/info-icon.png')}}">
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @else
+                        <p class="text-center fs24 pt-20">
+                            @if ($search != '')
+                                I searched {{$search}} and it gave me no results.    
+                            @else
+                                no results
+                            @endif
+                        </p>
+                    @endif
                 </div>
             </div>
         </section>
@@ -79,7 +89,7 @@
     @include('layouts/navbar_main')
     @include('layouts/navbar_sub')
     @include('layouts/profile_edit')
-    @include('layouts/property_add')
+    @include('layouts/property_add_admin')
     @include('layouts/author_add')
     @include('layouts/dispatcher_show')
     @include('layouts/dispatcher_add')

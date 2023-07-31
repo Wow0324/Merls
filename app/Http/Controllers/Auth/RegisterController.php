@@ -87,13 +87,7 @@ class RegisterController extends Controller
     //     ]);
     // }
 
-    /**
-     * @param  Request  $request
-     *
-     * @return View|Factory|Application|RedirectResponse
-     * @throws InvalidArgumentException
-     */
-    public function register(Request $request): View|Factory|Application|RedirectResponse
+    public function register(Request $request)
     {
         $data = $request->except('_token');
         // dd($data);
@@ -111,7 +105,7 @@ class RegisterController extends Controller
         $v = Validator::make($data, $rules);
 
         if ($v->fails()) {
-            // dd($v->errors());
+            // return $v->errors();
             return redirect()->route('register')->withInput()->withErrors($v->errors());
         }
         

@@ -5,44 +5,19 @@
 <section class="admin-dashboard dashboard pt20">
     <div class="container">
 
-        <section class="heading bcblack bdr9 white mb30">
+        <section class="heading bcred bdr9 white mb30 search-div">
             <div class="row align-items-center justify-content-between">
-                <div class="col-sm-9 d-flex align-items-center">
-                    <h1 class="fs32 mb0 ml20">{{$activeProperty ? $activeProperty->name : ''}}</h1>
-                </div>
-                <div class="col-sm-3 text-right">
+                <div class="col-sm-4 d-flex align-items-center">
                     <a href="#choose-property" class="fancybox-inline"><img src="{{asset('img/dropdown-icon.png')}}"></a>
+                    <h1 class="fs32 mb0 ml20">Properties</h1>
                 </div>
-            </div>
-        </section>
-
-        <section class="status mb30">
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="inner">
-                        <div class="row  align-items-center">
-                            <div class="col-sm-9">
-                                <div class="satatus-approved fs24 lh1-2">
-                                    <b class="block">Status</b>
-                                    <span class="green">
-                                        {{$activeProperty && $activeProperty->approved == 0 ? 'Pending' : ( $activeProperty->approved == 1 ? 'Approved' : 'Denied' )}}
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="inner">
-                        <div class="row align-items-center">
-                            <div class="col-sm-10">
-                                <div class="jurisdiction fs24 lh1-2">
-                                    <b class="block">Jurisdiction</b>
-                                    <span class="gray" id="juristiction-value">{{$activeProperty ? $activeProperty->jurisdiction : ''}}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-sm-8 text-right">
+                    <form class="search-form site-form mb0">
+                        <fieldset class="d-flex align-items-center justify-content-end">
+                            <input type="search" value="{{$search}}" placeholder="" name="" id="search-key" class="lightgray">
+                            <button onclick="searchProperty()" type="button" class="btn">Search</button>
+                        </fieldset>
+                    </form>
                 </div>
             </div>
         </section>
@@ -51,22 +26,32 @@
             <div class="heading bdr9 bcgray white">
                 <div class="row align-items-center">
                     <div class="col-sm-6">
-                        <b class="fs24">Authorized Users</b>
+                        <b class="fs24">Properties</b>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-12">
-                    <table class="width100p users-table fs24">
-                        <tbody>
-                            @foreach ($authorUsers as $author)
-                                <tr id="author{{$author->id}}" data-id="{{$author->id}}">
-                                    <td>{{$author->name}}</td>
-                                    <td>{{$author->phone}}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                    @if (count($properties)>0)
+                        <table class="width100p users-table fs24">
+                            <tbody>
+                                @foreach ($properties as $property)
+                                    <tr id="property{{$property->id}}" data-id="{{$property->id}}">
+                                        <td>{{$property->name}}</td>
+                                        <td>{{$property->address}}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @else
+                        <p class="text-center fs24 pt-20">
+                            @if ($search != '')
+                                I searched {{$search}} and it gave me no results.    
+                            @else
+                                no results
+                            @endif
+                        </p>
+                    @endif
                 </div>
             </div>
         </section>
@@ -75,7 +60,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="inner">
-                        {{ $authorUsers->links('layouts.pagination_custom') }}
+                        {{ $properties->links('layouts.pagination_custom') }}
                     </div>
                 </div>
             </div>
@@ -87,8 +72,8 @@
 <footer>
 
     @include('layouts/navbar_main')
+    @include('layouts/navbar_sub')
     @include('layouts/profile_edit')
-    @include('layouts/choose_property')
     
 </footer>
 @endsection

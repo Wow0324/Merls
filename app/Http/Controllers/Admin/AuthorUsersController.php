@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\AuthorUsersList;
 use App\Rules\Phone;
+use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -39,12 +40,14 @@ class AuthorUsersController extends Controller
         $search = request('search');
         if($search == null) $search = '';
 
-        $authorList = AuthorUsersList::where('name', 'LIKE', '%'.$search.'%')->paginate(10);
+        $authorList = AuthorUsersList::where('name', 'LIKE', '%'.$search.'%')->orWhere('phone', 'LIKE', '%'.$search.'%')->paginate(10);
+        $all_customers = User::where('role', 1)->get();
 
         return view('admin.author_users', [
             'user'        => $user,
             'authorUsers' => $authorList,
-            'search'      => $search
+            'search'      => $search,
+            'all_customers' => $all_customers
         ]);
     }
 

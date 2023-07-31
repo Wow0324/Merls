@@ -65,6 +65,7 @@ Route::prefix('admin')->name('admin.')->group(function() {
     Route::get('/properties', [App\Http\Controllers\Admin\PropertiesController::class, 'index'])->name('properties');
     Route::get('/author_users', [App\Http\Controllers\Admin\AuthorUsersController::class, 'index'])->name('author_users');
     Route::get('/dispatchers', [App\Http\Controllers\Admin\DispatchersController::class, 'index'])->name('dispatchers');
+    Route::get('/detail_property', [App\Http\Controllers\Admin\PropertiesController::class, 'detailProperty'])->name('detail_property');
     
     Route::post('/get_customer', [App\Http\Controllers\Admin\CustomersController::class, 'getCustomer'])->name('get_customer');
     Route::post('/delete_customer', [App\Http\Controllers\Admin\CustomersController::class, 'deleteCustomer'])->name('delete_customer');
@@ -74,6 +75,8 @@ Route::prefix('admin')->name('admin.')->group(function() {
     Route::post('/delete_dispatcher', [App\Http\Controllers\Admin\DispatchersController::class, 'deleteDispatcher'])->name('delete_dispatcher');
     Route::post('/add_dispatcher', [App\Http\Controllers\Admin\DispatchersController::class, 'addDispatcher'])->name('add_dispatcher');
     Route::post('/add_property', [App\Http\Controllers\Admin\PropertiesController::class, 'addProperty'])->name('add_property');
+    Route::post('/get_property', [App\Http\Controllers\Admin\PropertiesController::class, 'getProperty'])->name('get_property');
+    Route::post('/delete_property', [App\Http\Controllers\Admin\PropertiesController::class, 'deleteProperty'])->name('delete_property');
     Route::post('/approve_property', [App\Http\Controllers\Admin\PropertiesController::class, 'approveProperty'])->name('approve_property');
     Route::post('/edit_jurisdiction', [App\Http\Controllers\Admin\PropertiesController::class, 'editJurisdiction'])->name('edit_jurisdiction');
     Route::post('/add_author', [App\Http\Controllers\Admin\AuthorUsersController::class, 'addAuthor'])->name('add_author');

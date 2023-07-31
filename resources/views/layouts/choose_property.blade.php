@@ -6,11 +6,11 @@
                 <ul>
                     @foreach ($properties as $property)
                         @if ($user->role == 0)
-                            <li><a href="{{route('admin.properties', ['property_id' => $property->id])}}">{{$property->name}}</a></li>
+                            <li><a href="{{route('admin.detail_property', ['status' => false , 'property_id' => $property->id])}}">{{$property->name}}</a></li>
                         @elseif ($user->role == 1)
-                            <li><a href="{{route('customer.dashboard', ['property_id' => $property->id])}}">{{$property->name}}</a></li>
+                            <li><a href="{{route('customer.dashboard', ['status' => false , 'property_id' => $property->id])}}">{{$property->name}}</a></li>
                         @else
-                            <li><a href="{{route('dispatcher.properties', ['property_id' => $property->id])}}">{{$property->name}}</a></li>
+                            <li><a href="{{route('dispatcher.properties', ['status' => false , 'property_id' => $property->id])}}">{{$property->name}}</a></li>
                         @endif
                     @endforeach
                 </ul>

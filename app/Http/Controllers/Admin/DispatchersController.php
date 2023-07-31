@@ -40,12 +40,20 @@ class DispatchersController extends Controller
         $search = request('search');
         if($search == null) $search = '';
 
-        $dispatchers = User::where('role', 2)->where('email', 'LIKE', '%'.$search.'%')->paginate(10);
+        $dispatchers = User::where('role', 2)
+            ->where(function ($query) use ($search) {
+                $query->where('first_name', 'LIKE', '%'.$search.'%')
+                      ->orWhere('last_name', 'LIKE', '%'.$search.'%')
+                      ->orWhere('phone', 'LIKE', '%'.$search.'%');
+            })
+            ->paginate(10);
 
+        $all_customers = User::where('role', 1)->get();
         return view('admin.dispatchers', [
             'user'        => $user,
             'dispatchers'   => $dispatchers,
-            'search'      => $search
+            'search'      => $search,
+            'all_customers' => $all_customers
         ]);
     }
 
@@ -98,12 +106,23 @@ class DispatchersController extends Controller
             'phone'      => ['required', new Phone($data['phone'])],
         ];
 
+        if($request->has('id')){
+            if($data['id'] > 0){
+                if($data['password'] == '' || $data['password_confirmation'] == ''){
+                    $rules = [
+                        'email' => ['required', 'string', 'email', 'max:255'],
+                        'phone'      => ['required', new Phone($data['phone'])],
+                    ];          
+                }
+            }
+        }
+
         $v = Validator::make($data, $rules);
 
         if ($v->fails()) {
             return response()->json([
                 'status'  => 'error',
-                "message" => 'Validation failed.'
+                "message" => $v->errors()
             ]);
         }
         
@@ -119,11 +138,13 @@ class DispatchersController extends Controller
                 }
                 
                 $user->email        = $data['email'];
-                $user->password     = Hash::make($data['password']);
                 $user->phone        = $data['phone'];
                 $user->role         = 2;
                 $user->first_name   = '';
                 $user->last_name    = '';
+                if($data['password'] != '' && $data['password'] == $data['password_confirmation']){
+                    $user->password     = Hash::make($data['password']);
+                }
         
                 $user->save();
         

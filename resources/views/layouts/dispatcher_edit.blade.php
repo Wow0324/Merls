@@ -12,12 +12,14 @@
                             <p>
                                 <label for="email">Email</label>
                                 <input type="text" placeholder="" name="email" id="edit-dispatcher-email">
+                                <span class="small text-danger" id="dispatcher-email-error" role="alert"></span>
                             </p>
                         </div>
                         <div class="col-sm-6">
                             <p>
                                 <label for="phone">Phone</label>
                                 <input type="tel" placeholder="" name="phone" id="edit-dispatcher-phone">
+                                <span class="small text-danger" id="dispatcher-phone-error" role="alert"></span>
                             </p>
                         </div>
                     </div>
@@ -26,6 +28,7 @@
                             <p>
                                 <label for="psw">Password</label>
                                 <input type="password" placeholder="" name="password" id="edit-dispatcher-password">
+                                <span class="small text-danger" id="dispatcher-password-error" role="alert"></span>
                             </p>
                         </div>
                         <div class="col-sm-6">

@@ -40,12 +40,21 @@ class CustomersController extends Controller
         $search = request('search');
         if($search == null) $search = '';
 
-        $customers = User::where('role', 1)->where('email', 'LIKE', '%'.$search.'%')->paginate(10);
+        $customers = User::where('role', 1)
+            ->where(function ($query) use ($search) {
+                $query->where('first_name', 'LIKE', '%'.$search.'%')
+                      ->orWhere('last_name', 'LIKE', '%'.$search.'%')
+                      ->orWhere('phone', 'LIKE', '%'.$search.'%');
+            })
+            ->paginate(10);
+
+        $all_customers = User::where('role', 1)->get();
 
         return view('admin.customers', [
             'user'        => $user,
             'customers'   => $customers,
-            'search'      => $search
+            'search'      => $search,
+            'all_customers' => $all_customers
         ]);
     }
 
@@ -94,6 +103,7 @@ class CustomersController extends Controller
         
         $rules = [
             'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'phone'      => ['required', new Phone($data['phone'])],
@@ -103,12 +113,30 @@ class CustomersController extends Controller
             'zipcode' => ['required', 'string'],
         ];
 
+        if($request->has('id')){
+            if($data['id'] > 0){
+                if($data['password'] == '' || $data['password_confirmation'] == ''){
+                    $rules = [
+                        'first_name' => ['required', 'string', 'max:255'],
+                        'last_name' => ['required', 'string', 'max:255'],
+                        'email' => ['required', 'string', 'email', 'max:255'],
+                        'phone'      => ['required', new Phone($data['phone'])],
+                        'address' => ['required', 'string'],
+                        'city' => ['required', 'string'],
+                        'state' => ['required', 'string'],
+                        'zipcode' => ['required', 'string'],
+                    ];  
+                }
+        
+            }
+        }
+        
         $v = Validator::make($data, $rules);
 
         if ($v->fails()) {
             return response()->json([
                 'status'  => 'error',
-                "message" => 'Validation failed.'
+                'message' => $v->errors()
             ]);
         }
         
@@ -126,13 +154,15 @@ class CustomersController extends Controller
                 $user->email        = $data['email'];
                 $user->first_name   = $data['first_name'];
                 $user->last_name    = $data['last_name'];
-                $user->password     = Hash::make($data['password']);
                 $user->phone        = $data['phone'];
                 $user->address      = $data['address'];
                 $user->city         = $data['city'];
                 $user->state        = $data['state'];
                 $user->zipcode      = $data['zipcode'];
                 $user->role         = 1;
+                if($data['password'] != '' && $data['password'] == $data['password_confirmation']){
+                    $user->password     = Hash::make($data['password']);
+                }
         
                 $user->save();
         
